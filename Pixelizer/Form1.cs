@@ -27,13 +27,7 @@ namespace Pixelizer
                 s = dialog.FileName;
                 image = Image.FromFile(@s);
             }
-            int w = image.Width;
-            int h = image.Height;
-            using(Graphics g = Graphics.FromImage(image))
-            {
-                Pen p = new Pen(Color.Black, 1);
-                //g.DrawLine(p, 0, 0, w, h);
-            }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -43,6 +37,35 @@ namespace Pixelizer
             if(save.ShowDialog() == DialogResult.OK)
             {
                 image.Save(@save.FileName);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int num_pixels_w, num_pixels_h;
+            if(image != null)
+            {
+                if(int.TryParse(textBox1.Text, out num_pixels_h)&& int.TryParse(textBox2.Text, out num_pixels_w))
+                {
+                    int w = image.Width;
+                    int h = image.Height;
+                    for(int i =0;i<w; i++)
+                    {
+                        for (int j = 0; j < h; j++) {
+                            ((Bitmap)image).SetPixel(i,j,Color.Black);
+                        }
+                    }
+                    
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Wrong number of pixels");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Open file first");
             }
         }
     }
