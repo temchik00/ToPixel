@@ -17,6 +17,7 @@ namespace Pixelizer
             InitializeComponent();
         }
         Image image;
+        Bitmap im;
         private void button1_Click(object sender, EventArgs e)
         {
             string s;
@@ -36,7 +37,7 @@ namespace Pixelizer
             save.Filter = "png|*.png";
             if(save.ShowDialog() == DialogResult.OK)
             {
-                image.Save(@save.FileName);
+                im.Save(@save.FileName);
             }
         }
 
@@ -47,12 +48,21 @@ namespace Pixelizer
             {
                 if(int.TryParse(textBox1.Text, out num_pixels_h)&& int.TryParse(textBox2.Text, out num_pixels_w))
                 {
+                    
                     int w = image.Width;
                     int h = image.Height;
-                    for(int i =0;i<w; i++)
+                    Size size_of_image = image.Size;
+                    size_of_image.Width += w % num_pixels_w;
+                    w = (w + w % num_pixels_w) / num_pixels_w;
+                    size_of_image.Height += h % num_pixels_h;
+                    h = (h + h % num_pixels_h) / num_pixels_h;
+                    im = new Bitmap((Bitmap)image,size_of_image);
+                   // im =new  Bitmap(im, size_of_image);
+                    for (int i =0;i<w; i++)
                     {
                         for (int j = 0; j < h; j++) {
-                            ((Bitmap)image).SetPixel(i,j,Color.Black);
+                            im.SetPixel(i,j,Color.Black);
+                            
                         }
                     }
                     
