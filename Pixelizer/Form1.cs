@@ -17,7 +17,7 @@ namespace Pixelizer
             InitializeComponent();
         }
         Image image;
-        Bitmap im;
+        public Bitmap im;
         private void button1_Click(object sender, EventArgs e)
         {
             string s;
@@ -57,15 +57,35 @@ namespace Pixelizer
                     size_of_image.Height += h % num_pixels_h;
                     h = (h + h % num_pixels_h) / num_pixels_h;
                     im = new Bitmap((Bitmap)image,size_of_image);
-                   // im =new  Bitmap(im, size_of_image);
-                    for (int i =0;i<w; i++)
+                    for (int i =0;i<num_pixels_w; i++)
                     {
-                        for (int j = 0; j < h; j++) {
-                            im.SetPixel(i,j,Color.Black);
-                            
+                        for (int j = 0; j < num_pixels_h; j++) {
+                            //im.SetPixel(i,j,Color.Black);
+                            int r = 0, g = 0, b = 0;
+                            Color color;
+                            for(int x = i * w; x < (i + 1) * w; x++)
+                            {
+                                for (int y = j * h; y < (j + 1) * h; y++)
+                                {
+                                    color = im.GetPixel(x, y);
+                                    r += color.R;
+                                    g += color.G;
+                                    b += color.B;
+                                }
+                            }
+                            r /= w * h;
+                            g /= w * h;
+                            b /= w * h;
+                            for (int x = i * w; x < (i + 1) * w; x++)
+                            {
+                                for (int y = j * h; y < (j + 1) * h; y++)
+                                {
+                                    im.SetPixel(x, y, Color.FromArgb(r, g, b));
+                                }
+                            }
                         }
                     }
-                    
+                    MessageBox.Show("work done");
                     
                 }
                 else
@@ -76,6 +96,19 @@ namespace Pixelizer
             else
             {
                 MessageBox.Show("Open file first");
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if(im != null)
+            {
+                Form2 form2 = new Form2(this);
+                form2.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No image");
             }
         }
     }
