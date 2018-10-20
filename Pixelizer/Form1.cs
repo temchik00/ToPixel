@@ -12,6 +12,10 @@ namespace Pixelizer
 {
     public partial class Form1 : Form
     {
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
         public Form1()
         {
             InitializeComponent();
@@ -110,6 +114,17 @@ namespace Pixelizer
             {
                 MessageBox.Show("No image");
             }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Add();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form3 form = new Form3(this);
+            form.ShowDialog();
         }
     }
 }
