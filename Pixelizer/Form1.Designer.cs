@@ -39,11 +39,11 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.R = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.G = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -132,6 +132,7 @@
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.R,
@@ -139,7 +140,7 @@
             this.B});
             this.dataGridView1.Location = new System.Drawing.Point(212, 60);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(346, 260);
+            this.dataGridView1.Size = new System.Drawing.Size(359, 256);
             this.dataGridView1.TabIndex = 10;
             // 
             // label3
@@ -150,21 +151,6 @@
             this.label3.Size = new System.Drawing.Size(82, 13);
             this.label3.TabIndex = 11;
             this.label3.Text = "Colors( in RGB )";
-            // 
-            // R
-            // 
-            this.R.HeaderText = "Red";
-            this.R.Name = "R";
-            // 
-            // G
-            // 
-            this.G.HeaderText = "Green";
-            this.G.Name = "G";
-            // 
-            // B
-            // 
-            this.B.HeaderText = "Blue";
-            this.B.Name = "B";
             // 
             // button5
             // 
@@ -186,11 +172,29 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // R
+            // 
+            this.R.HeaderText = "Red";
+            this.R.MaxInputLength = 3;
+            this.R.Name = "R";
+            // 
+            // G
+            // 
+            this.G.HeaderText = "Green";
+            this.G.MaxInputLength = 3;
+            this.G.Name = "G";
+            // 
+            // B
+            // 
+            this.B.HeaderText = "Blue";
+            this.B.MaxInputLength = 3;
+            this.B.Name = "B";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(691, 332);
+            this.ClientSize = new System.Drawing.Size(694, 367);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label3);
@@ -207,6 +211,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -224,12 +229,12 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn R;
-        private System.Windows.Forms.DataGridViewTextBoxColumn G;
-        private System.Windows.Forms.DataGridViewTextBoxColumn B;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         public System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn R;
+        private System.Windows.Forms.DataGridViewTextBoxColumn G;
+        private System.Windows.Forms.DataGridViewTextBoxColumn B;
     }
 }
 
