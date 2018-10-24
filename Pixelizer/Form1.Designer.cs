@@ -38,12 +38,14 @@
             this.button4 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             this.R = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.G = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,39 +140,10 @@
             this.R,
             this.G,
             this.B});
-            this.dataGridView1.Location = new System.Drawing.Point(212, 60);
+            this.dataGridView1.Location = new System.Drawing.Point(212, 68);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(359, 256);
             this.dataGridView1.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(209, 44);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Colors( in RGB )";
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(308, 10);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(109, 23);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "Add Color";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(423, 10);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(135, 23);
-            this.button6.TabIndex = 13;
-            this.button6.Text = "Add Color from palette";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // R
             // 
@@ -190,11 +163,62 @@
             this.B.MaxInputLength = 3;
             this.B.Name = "B";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(209, 44);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Colors( in RGB )";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(308, 10);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(122, 23);
+            this.button5.TabIndex = 12;
+            this.button5.Text = "Add Color";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(436, 10);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(135, 23);
+            this.button6.TabIndex = 13;
+            this.button6.Text = "Add Color from palette";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(308, 39);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(122, 23);
+            this.button7.TabIndex = 14;
+            this.button7.Text = "Import colors";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(436, 39);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(135, 23);
+            this.button8.TabIndex = 15;
+            this.button8.Text = "Save colors";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 367);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label3);
@@ -235,6 +259,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn R;
         private System.Windows.Forms.DataGridViewTextBoxColumn G;
         private System.Windows.Forms.DataGridViewTextBoxColumn B;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
 

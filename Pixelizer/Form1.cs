@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.IO;
 namespace Pixelizer
 {
+    //@"..\..\input.txt"
     public partial class Form1 : Form
     {
         private void Form1_Load(object sender, EventArgs e)
@@ -47,6 +48,7 @@ namespace Pixelizer
 
         private void button3_Click(object sender, EventArgs e)
         {
+            
             int num_pixels_w, num_pixels_h;
             if(image != null)
             {
@@ -64,7 +66,6 @@ namespace Pixelizer
                     for (int i =0;i<num_pixels_w; i++)
                     {
                         for (int j = 0; j < num_pixels_h; j++) {
-                            //im.SetPixel(i,j,Color.Black);
                             int r = 0, g = 0, b = 0;
                             Color color;
                             for(int x = i * w; x < (i + 1) * w; x++)
@@ -160,6 +161,42 @@ namespace Pixelizer
         private void Form1_Resize(object sender, EventArgs e)
         {
             dataGridView1.Height = this.Height - dataGridView1.Top-40;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "pixel palette|*.ppltte";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                string[] text = new string[dataGridView1.Rows.Count];
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    text[i] = dataGridView1[0, i].Value.ToString() + " " + dataGridView1[1, i].Value.ToString() + " " + dataGridView1[2, i].Value.ToString();
+                }
+                File.WriteAllLines(@save.FileName, text, Encoding.UTF8);
+                
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "pixel palette|*.ppltte";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                FileStream file = new FileStream(@dialog.FileName, FileMode.Open, FileAccess.Read);
+                StreamReader reader = new StreamReader(file);
+                string s = reader.ReadToEnd();
+                string[] rgb = new string[10];
+                rgb = s.Trim().Split('\n');
+                dataGridView1.Rows.Clear();
+                for(int i = 0; i < rgb.Length; i++)
+                {
+                    string[] colors = rgb[i].Trim().Split();
+                    dataGridView1.Rows.Add(int.Parse(colors[0]), int.Parse(colors[1]), int.Parse(colors[2]));
+                }
+            }
         }
     }
 }
