@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 namespace Pixelizer
 {
+    
     //@"..\..\input.txt"
     public partial class Form1 : Form
     {
@@ -58,10 +59,16 @@ namespace Pixelizer
                     int w = image.Width;
                     int h = image.Height;
                     Size size_of_image = image.Size;
-                    size_of_image.Width += num_pixels_w- w % num_pixels_w;
-                    w = (w + num_pixels_w-w % num_pixels_w) / num_pixels_w;
-                    size_of_image.Height += num_pixels_h-h % num_pixels_h;
-                    h = (h + num_pixels_h-h % num_pixels_h) / num_pixels_h;
+                    if (size_of_image.Width % num_pixels_w != 0)
+                    {
+                        size_of_image.Width += num_pixels_w - size_of_image.Width % num_pixels_w;
+                    }
+                    w = size_of_image.Width / num_pixels_w;
+                    if (size_of_image.Width % num_pixels_w != 0)
+                    {
+                        size_of_image.Height += num_pixels_h - size_of_image.Height % num_pixels_h;
+                    }
+                    h = size_of_image.Height/ num_pixels_h;
                     im = new Bitmap((Bitmap)image,size_of_image);
                     for (int i =0;i<num_pixels_w; i++)
                     {
