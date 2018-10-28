@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections;
 namespace Pixelizer
 {
-    
+
     //@"..\..\input.txt"
+    
     public partial class Form1 : Form
     {
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             dataGridView1.Height = this.Height - dataGridView1.Top - 40;
@@ -55,7 +58,6 @@ namespace Pixelizer
             {
                 if(int.TryParse(textBox1.Text, out num_pixels_h)&& int.TryParse(textBox2.Text, out num_pixels_w))
                 {
-                    
                     int w = image.Width;
                     int h = image.Height;
                     Size size_of_image = image.Size;
@@ -70,12 +72,32 @@ namespace Pixelizer
                     }
                     h = size_of_image.Height/ num_pixels_h;
                     im = new Bitmap((Bitmap)image,size_of_image);
+                    if (checkBox2.Checked)
+                    {
+                        int simpl = 4;
+                        for (int i = 0; i < im.Width; i++)
+                        {
+                            for (int j = 0; j < im.Height; j++)
+                            {
+                                Color color = im.GetPixel(i, j);
+                                int r = color.R / simpl * simpl, g = color.G / simpl * simpl, b = color.B / simpl * simpl;
+                                im.SetPixel(i, j, Color.FromArgb(r, g, b));
+                            }
+
+                        }
+
+                    }
+                    progressBar1.Maximum = num_pixels_w;
+                    progressBar1.Value = 0;
+                    progressBar1.Visible = true;
                     for (int i =0;i<num_pixels_w; i++)
                     {
-                        for (int j = 0; j < num_pixels_h; j++) {
+                        for (int j = 0; j < num_pixels_h; j++)
+                        {
                             int r = 0, g = 0, b = 0;
+
                             Color color;
-                            for(int x = i * w; x < (i + 1) * w; x++)
+                            for (int x = i * w; x < (i + 1) * w; x++)
                             {
                                 for (int y = j * h; y < (j + 1) * h; y++)
                                 {
@@ -98,20 +120,20 @@ namespace Pixelizer
                                 {
                                     int min = 0;
                                     int min_r, min_g, min_b, c_r, c_g, c_b;
-                                    for (int color_num =1;color_num< dataGridView1.Rows.Count; color_num++)
+                                    for (int color_num = 1; color_num < dataGridView1.Rows.Count; color_num++)
                                     {
                                         min_r = Convert.ToInt32(dataGridView1[0, min].Value);
                                         min_g = Convert.ToInt32(dataGridView1[1, min].Value);
-                                        min_b = Convert.ToInt32(dataGridView1[2,min].Value);
-                                        c_r = Convert.ToInt32(dataGridView1[0,color_num].Value);
+                                        min_b = Convert.ToInt32(dataGridView1[2, min].Value);
+                                        c_r = Convert.ToInt32(dataGridView1[0, color_num].Value);
                                         c_g = Convert.ToInt32(dataGridView1[1, color_num].Value);
                                         c_b = Convert.ToInt32(dataGridView1[2, color_num].Value);
                                         //30 * (Ri - R0)2 + 59 * (Gi - G0)2 + 11 * (Bi - B0)2
-                                        if ( (30*(c_r-r)* (c_r - r)+59* (c_g - g) * (c_g - g)+11 * (c_b - b) * (c_b - b)) < 
+                                        if ((30 * (c_r - r) * (c_r - r) + 59 * (c_g - g) * (c_g - g) + 11 * (c_b - b) * (c_b - b)) <=
                                             (30 * (min_r - r) * (min_r - r) + 59 * (min_g - g) * (min_g - g) + 11 * (min_b - b) * (min_b - b)))
                                         {
                                             min = color_num;
-                                        } 
+                                        }
                                     }
                                     r = Convert.ToInt32(dataGridView1[0, min].Value);
                                     g = Convert.ToInt32(dataGridView1[1, min].Value);
@@ -126,7 +148,9 @@ namespace Pixelizer
                                 }
                             }
                         }
+                        progressBar1.Value = i+1;
                     }
+                    progressBar1.Visible = false;
                     MessageBox.Show("work done");
                     
                 }
@@ -205,5 +229,7 @@ namespace Pixelizer
                 }
             }
         }
+
+        
     }
 }

@@ -25,7 +25,8 @@ namespace Pixelizer
         private void Form2_Load(object sender, EventArgs e)
         {
             pictureBox1.Image = form1.im;
-            this.Size = pictureBox1.Size;
+            Size add = new Size(50,50);
+            this.Size = pictureBox1.Size+add;
         }
     }
 }
