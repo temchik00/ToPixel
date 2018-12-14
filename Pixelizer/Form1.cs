@@ -13,7 +13,8 @@ namespace Pixelizer
 {
 
     //@"..\..\input.txt"
-    
+
+   
     public partial class Form1 : Form
     {
         
@@ -246,5 +247,163 @@ namespace Pixelizer
                 }
             }
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if(image != null)
+            {
+                myBitmap image_hsv =new myBitmap();
+                image_hsv.set_bitmap((Bitmap)image);
+                image_hsv.clear();
+                im = image_hsv.bitmap;
+            }
+        }
+    }
+}
+public class hsv
+{
+    public double Hue, Saturation, Value;
+
+    public hsv()
+    {
+        this.Hue = 0;
+        this.Saturation = 0;
+        this.Value = 0;
+    }
+    
+    public hsv(Color origin)
+    {
+        ColorToHSV(origin, out Hue, out Saturation, out Value);
+    }
+    public void setColor(Color origin)
+    {
+        ColorToHSV(origin, out Hue, out Saturation, out Value);
+    }
+    public Color GetColor()
+    {
+        return ColorFromHSV(this.Hue, this.Saturation, this.Value);
+    }
+
+
+    public static void ColorToHSV(Color color, out double hue, out double saturation, out double value)
+    {
+        int max = Math.Max(color.R, Math.Max(color.G, color.B));
+        int min = Math.Min(color.R, Math.Min(color.G, color.B));
+
+        hue = color.GetHue();
+        saturation = (max == 0) ? 0 : 1d - (1d * min / max);
+        value = max / 255d;
+    }
+
+    public static Color ColorFromHSV(double hue, double saturation, double value)
+    {
+        int hi = Convert.ToInt32(Math.Floor(hue / 60)) % 6;
+        double f = hue / 60 - Math.Floor(hue / 60);
+
+        value = value * 255;
+        int v = Convert.ToInt32(value);
+        int p = Convert.ToInt32(value * (1 - saturation));
+        int q = Convert.ToInt32(value * (1 - f * saturation));
+        int t = Convert.ToInt32(value * (1 - (1 - f) * saturation));
+
+        if (hi == 0)
+            return Color.FromArgb(255, v, t, p);
+        else if (hi == 1)
+            return Color.FromArgb(255, q, v, p);
+        else if (hi == 2)
+            return Color.FromArgb(255, p, v, t);
+        else if (hi == 3)
+            return Color.FromArgb(255, p, q, v);
+        else if (hi == 4)
+            return Color.FromArgb(255, t, p, v);
+        else
+            return Color.FromArgb(255, v, p, q);
+    }
+    public Color GetColorRGB()
+    {
+        return hsv.ColorFromHSV(this.Hue, this.Saturation, this.Value);
+    }
+    public override string ToString()
+    {
+        return this.Hue.ToString() + " " + this.Saturation.ToString() + " " + this.Value.ToString();
+    }
+
+}
+public class myBitmap
+{
+    public Bitmap bitmap;
+    hsv[,] Colors;
+    public myBitmap()
+    {
+        bitmap = new Bitmap(1, 1);
+        Colors = new hsv[1,1];
+        Colors[0, 0] = new hsv();
+    }
+    public myBitmap(Bitmap image)
+    {
+        bitmap = image;
+        Colors = new hsv[image.Width,image.Height];
+        for (int i = 0; i < image.Width; i++)
+        {
+            for (int j = 0; j < image.Height; j++)
+            {
+                Colors[i, j] = new hsv();
+                Colors[i,j].setColor(bitmap.GetPixel(i, j));
+            }
+        }
+    }
+    public void update()
+    {
+        for (int i = 0; i < bitmap.Width; i++)
+        {
+            for (int j = 0; j < bitmap.Height; j++)
+            {
+                bitmap.SetPixel(i, j, Colors[i,j].GetColorRGB());
+            }
+        }
+    }
+    public void setPixel(int x, int y, Color color)
+    {
+        bitmap.SetPixel(x, y, color);
+        Colors[x,y].setColor(color);
+    }
+    public void setPixel(int x, int y, hsv color)
+    {
+        bitmap.SetPixel(x, y, color.GetColorRGB());
+        Colors[x,y] = color;
+    }
+    public void set_bitmap(Bitmap image)
+    {
+        bitmap = new Bitmap(image, image.Size);
+        Colors = new hsv[image.Width, image.Height];
+        for (int i = 0; i < image.Width; i++)
+        {
+            for (int j = 0; j < image.Height; j++)
+            {
+                Colors[i, j] = new hsv();
+                Colors[i,j].setColor(bitmap.GetPixel(i, j));
+            }
+        }
+    }
+    public Color getPixelRGB(int x, int y)
+    {
+        return bitmap.GetPixel(x, y);
+    }
+    public hsv getPixelHSV(int x, int y)
+    {
+        return Colors[x,y];
+    }
+    public void clear()
+    {
+        for(int i =0;i< bitmap.Width; i++)
+        {
+            for(int j = 0; j< bitmap.Height; j++)
+            {
+                Colors[i,j].Saturation = 0.9;
+                //Colors[i,j].Value = 0.8;
+                this.setPixel(i, j, Colors[i,j]);
+            }
+        }
+        
     }
 }
